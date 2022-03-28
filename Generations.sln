@@ -3,15 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.1.32210.238
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Generations.ObjectModel", "Generations.ObjectModel\Generations.ObjectModel.csproj", "{49C1A210-6204-461A-9DEE-5218C2239B74}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Generations.ObjectModel", "Generations.ObjectModel\Generations.ObjectModel.csproj", "{49C1A210-6204-461A-9DEE-5218C2239B74}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Generations.Tests", "Generations.Tests\Generations.Tests.csproj", "{623F9A23-DACD-4F63-9845-08606C0C6F1E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Generations.Tests", "Generations.Tests\Generations.Tests.csproj", "{623F9A23-DACD-4F63-9845-08606C0C6F1E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Generations", "Generations\Generations.csproj", "{746BA805-090C-424F-8EB2-75D79A1C449F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Generations", "Generations\Generations.csproj", "{746BA805-090C-424F-8EB2-75D79A1C449F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Generations.Data", "Generations.Data\Generations.Data.csproj", "{0D99D8E2-ACC5-4227-9DFD-C78BE2CB72A6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Generations.Data", "Generations.Data\Generations.Data.csproj", "{0D99D8E2-ACC5-4227-9DFD-C78BE2CB72A6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Generations.Core", "Generations.Core\Generations.Core.csproj", "{208E5FE4-F2D7-4538-9D17-35C050BEE093}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Generations.Core", "Generations.Core\Generations.Core.csproj", "{208E5FE4-F2D7-4538-9D17-35C050BEE093}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
