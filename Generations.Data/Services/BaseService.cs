@@ -1,98 +1,132 @@
-﻿using System.Linq.Expressions;
+﻿using System.Text;
 
-using Microsoft.EntityFrameworkCore;
+using Dapper;
+
+using Microsoft.Data.SqlClient;
+using Microsoft.Extensions.Configuration;
 
 using Generations.Core.Extensions;
-using Generations.Data.Contracts;
-using Generations.ObjectModel;
 
 namespace Generations.Data.Services
 {
-    public abstract class BaseService<T> : IService<T>, IServiceAsync<T> where T : BaseModel
+    public abstract class BaseService
     {
-        protected readonly ApplicationDbContext Context;
-        protected readonly DbSet<T> Set;
+        private readonly string _connectionId;
 
-        public BaseService(ApplicationDbContext context)
+        protected IConfiguration Configuration;
+
+        protected BaseService(IConfiguration configuration)
         {
-            Context = context;
+            Configuration = configuration;
 
-            Set = Context.Set<T>();
+            _connectionId = Configuration["Generations:ConnectionId"];
         }
 
-        public int Count()
+        public abstract string TableName { get; }
+
+        public virtual async Task<int> CountAsync()
         {
-            return Set.Count();
+            string sql = $@"
+SELECT COUNT(Id) FROM {TableName}";
+
+            using var connection = new SqlConnection(
+                Configuration.GetConnectionString(_connectionId));
+
+            connection.Open();
+
+            return await connection.ExecuteScalarAsync<int>(sql);
         }
 
-        public IQueryable<T> All()
+        public virtual async Task<bool> DeleteAsync(int id)
         {
-            return Set;
+            string sql = $@"
+DELETE FROM {TableName}
+WHERE Id = @Id";
+
+            using var connection = new SqlConnection(
+                Configuration.GetConnectionString(_connectionId));
+
+            connection.Open();
+
+            return await connection.ExecuteAsync(sql, new { id }) > 0;
         }
 
-        public IEnumerable<T> Page(Func<T, bool> query, string sort = "id", int page = 1, int pageSize = 100, bool ascending = true)
+        protected static string LikeCondition(string column, string value)
         {
-            return Set
-                .Where(query)
-                .Skip(pageSize * (page - 1))
-                .Take(pageSize)
-                .OrderByPropertyOrField(sort)
-                .AsQueryable();
+            return $" AND {column} LIKE '%{value.SqlEscape()}%' ";
         }
 
-        public T Create(T entity)
+        protected static string FullLikeCondition(string column, string value)
         {
-            throw new NotImplementedException();
+            return $" AND {column} LIKE '%{value.SqlEscape()}%' AND {column} IS NOT NULL ";
         }
 
-        public Task<T> CreateAsync(T entity)
+        protected static string ComboLikeCondition(string column, string value)
         {
-            throw new NotImplementedException();
+            if (value == "All")
+            {
+                return "";
+            }
+
+            return $" AND {column} LIKE '%{value.SqlEscape()}%' AND {column} IS NOT NULL ";
         }
 
-        public bool Delete(long id)
+        protected static string MultiLikeCondition(string column, string value)
         {
-            throw new NotImplementedException();
+            if (!value.Contains(','))
+            {
+                return $" AND {column} LIKE '%{value.SqlEscape()}%' AND {column} IS NOT NULL ";
+            }
+
+            string[] likes = value.Split(',');
+
+            StringBuilder result = new(" AND (");
+
+            for (int i = 0; i < likes.Length; i++)
+            {
+                if (i == 0)
+                {
+                    result.Append($"{column} LIKE '%{likes[i].SqlEscape().Trim()}%'");
+                }
+                else
+                {
+                    result.Append($" OR {column} LIKE '%{likes[i].SqlEscape().Trim()}%'");
+                }
+            }
+
+            result.Append($") AND {column} IS NOT NULL ");
+
+            return result.ToString();
         }
 
-        public bool Delete(IEnumerable<T> entities)
+        protected static string GridActiveCondition(string column, string nullActiveColumn, bool? active, bool hasOtherConditions = false)
         {
-            throw new NotImplementedException();
+            return active == null && !hasOtherConditions ? "" : active == null ? $" WHERE {nullActiveColumn} > 0 " : $" WHERE {column} = '{(active.GetValueOrDefault(false) ? "true" : "false")}' ";
         }
 
-        public Task<bool> DeleteAsync(long id)
+        protected static string ActiveCondition(string column, bool activeOnly)
         {
-            throw new NotImplementedException();
+            return !activeOnly ? " WHERE " : $" WHERE {column} = 'true' AND ";
         }
 
-        public Task<bool> DeleteAsync(IEnumerable<T> entities)
+        protected static string BoolCondition(string column, bool? value)
         {
-            throw new NotImplementedException();
+            return value == null ? "" : $" AND {column} = '{value.GetValueOrDefault()}' ";
         }
 
-        public T GetById(long id)
+        protected static string EqualsCondition(string column, int value)
         {
-            throw new NotImplementedException();
+            return $" AND {column} = '{value}' ";
         }
 
-        public Task<T> GetByIdAsync(long id)
+        protected static string EqualsMoreCondition(string column, string value)
         {
-            throw new NotImplementedException();
+            return $" AND {column} >= '{value}' ";
         }
 
-        public bool Update(T entity)
+        protected static string EqualsLessCondition(string column, string value)
         {
-            throw new NotImplementedException();
-        }
-
-        public Task<bool> UpdateAsync(T entity)
-        {
-            throw new NotImplementedException();
-        }
-
-        public IEnumerable<T> Where(Expression<Func<T, bool>> expression)
-        {
-            throw new NotImplementedException();
+            return $" AND {column} <= '{value}' ";
         }
     }
 }
