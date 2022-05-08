@@ -12,7 +12,7 @@ using Generations.ObjectModel.Search;
 namespace Generations.API.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("person")]
     [Produces(MediaTypeNames.Application.Json)]
     public class PersonController : ControllerBase,
         IRestController<Person>,
