@@ -1,4 +1,4 @@
-﻿namespace Generations.API.Infrastructure
+﻿namespace Generations.ObjectModel.Pagination
 {
     public class PagedSet<T> where T : class
     {

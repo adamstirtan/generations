@@ -24,12 +24,12 @@ namespace Generations.Data.Services
             throw new NotImplementedException();
         }
 
-        public Task<int> CountAsync(Person search)
+        public Task<int> CountAsync(PersonSearch search)
         {
             throw new NotImplementedException();
         }
 
-        public Task<Person> CreateAsync(Person model)
+        public Task<Person> CreateAsync(Person dto)
         {
             throw new NotImplementedException();
         }
@@ -54,7 +54,7 @@ namespace Generations.Data.Services
             throw new NotImplementedException();
         }
 
-        public Task<bool> UpdateAsync(Person model)
+        public Task<bool> UpdateAsync(long id, Person dto)
         {
             throw new NotImplementedException();
         }

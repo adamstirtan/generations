@@ -11,9 +11,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Generations.Data", "Generat
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Generations.Core", "Generations.Core\Generations.Core.csproj", "{208E5FE4-F2D7-4538-9D17-35C050BEE093}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Generations.API", "Generations.API\Generations.API.csproj", "{5A7482B5-178D-4525-B000-6105C9237A5A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Generations.API", "Generations.API\Generations.API.csproj", "{5A7482B5-178D-4525-B000-6105C9237A5A}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Generations", "Generations\Generations.csproj", "{4F126A81-F9A7-48D1-AF1A-DCD5806EA83D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{59309827-A169-4226-9278-907845FCFC1E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -48,6 +50,9 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{623F9A23-DACD-4F63-9845-08606C0C6F1E} = {59309827-A169-4226-9278-907845FCFC1E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {EF3642C4-A79C-48C0-A675-8B3ADCE5ADB2}

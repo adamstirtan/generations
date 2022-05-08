@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
-using Generations.API.Infrastructure;
 using Generations.ObjectModel;
+using Generations.ObjectModel.Pagination;
 
 namespace Generations.API.Extensions
 {
@@ -46,8 +46,8 @@ namespace Generations.API.Extensions
                 PageSize = enumerable.Count(),
                 TotalPages = totalPageCount,
                 TotalItems = totalItems,
-                PreviousUrl = previousUrl,
-                NextUrl = nextUrl
+                PreviousUrl = previousUrl ?? string.Empty,
+                NextUrl = nextUrl ?? string.Empty
             };
         }
     }
