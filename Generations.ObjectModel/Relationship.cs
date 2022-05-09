@@ -8,8 +8,7 @@ namespace Generations.ObjectModel
         [MaxLength(100)]
         public string Name { get; set; } = string.Empty;
 
-        [Required]
-        public Person Person { get; set; } = new();
+        // PersonId
 
         [Required]
         public RelationshipTypes Type { get; set; }
