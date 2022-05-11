@@ -1,19 +1,9 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace Generations.ObjectModel
+﻿namespace Generations.ObjectModel
 {
     public class Person : BaseModel
     {
-        [Required]
-        [MaxLength(200)]
-        public string Name { get; set; } = string.Empty;
-
-        [Required]
-        [MaxLength(100)]
         public string FirstName { get; set; } = string.Empty;
 
-        [Required]
-        [MaxLength(100)]
         public string LastName { get; set; } = string.Empty;
 
         public string FormerName { get; set; } = string.Empty;
@@ -28,11 +18,12 @@ namespace Generations.ObjectModel
 
         public DateOnly? BirthDate { get; set; }
 
+        public long? BirthPlaceId { get; set; }
         public Place? BirthPlace { get; set; } = null;
 
         public DateOnly? DeathDate { get; set; }
 
-        public Relationship Relationship { get; set; } = new();
+        public RelationshipTypes? Relationship { get; set; } = RelationshipTypes.Unknown;
 
         public Genders Gender { get; set; } = Genders.Unknown;
     }

@@ -2,6 +2,13 @@
 {
     public enum RelationshipTypes
     {
-        Father
+        Unknown,
+        Self,
+        Father,
+        Mother,
+        Son,
+        Daughter,
+        Uncle,
+        Aunt
     }
 }

@@ -2,10 +2,10 @@
 {
     public abstract class BaseModel
     {
-        public long Id { get; set; }
+        public long? Id { get; set; }
 
-        public DateTimeOffset Created { get; set; } = DateTimeOffset.Now;
+        public DateTime Created { get; set; }
 
-        public DateTimeOffset Updated { get; set; } = DateTimeOffset.Now;
+        public DateTime LastUpdated { get; set; }
     }
 }
